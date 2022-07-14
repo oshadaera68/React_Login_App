@@ -15,9 +15,10 @@ const divStyle = {
 const text1 = {
     position: 'relative',
     display: 'flex',
+    alignItems: 'center',
     height: '30%',
     width: '30%',
-    left: '83vh',
+    left: '85vh',
     top: '11vh',
     fontFamily: 'ubuntu',
     fontSize: '41px',
@@ -34,8 +35,8 @@ const form1 = {
 
 const button1 = {
     position: 'relative',
-    left:'83vh',
-    top:'14vh',
+    left: '83vh',
+    top: '14vh',
     display: 'flex',
     height: '9%',
     width: '10%',
@@ -44,8 +45,8 @@ const button1 = {
 
 const button2 = {
     position: 'relative',
-    left:'83vh',
-    top:'11vh',
+    left: '83vh',
+    top: '11vh',
     display: 'flex',
     height: '9%',
     width: '10%',
@@ -57,6 +58,20 @@ const button2 = {
 class Login extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            userName: 'admin',
+            password: 'admin',
+            formData:{
+                userName: '',
+                password: ''
+            }
+        }
+    }
+
+    checkValidate() {
+        console.log("Log In button clicked")
+        console.log("User name:" + this.state.userName)
+        console.log("Password:" + this.state.password)
     }
 
     render() {
@@ -69,19 +84,23 @@ class Login extends Component {
                 </div>
                 <br/>
                 <div>
-
-                    <TextField style={form1} id="outlined-basic" label="User Name" variant="outlined"/>
+                    <TextField style={form1} id="outlined-basic" label="User Name" onChange={(e) => {
+                        console.log(e.target.value)
+                    }} variant="outlined"/>
                     <br/><br/>
-                    <TextField style={form1} id="outlined-password-input" label="Password" type="password"
-                               autoComplete="current-password"/>
+                    <TextField style={form1} id="outlined-password-input" label="Password" onChange={(e) => {
+                        console.log(e.target.value)
+                    }}
+                    type="password" autoComplete="current-password"/>
                 </div>
                 <br/>
                 <div>
-                    <Button style={button1} variant="contained">Log In</Button><br/><br/>
+                    <Button style={button1} variant="contained" onClick={() => {
+                        this.checkValidate();
+                    }}>Log In</Button><br/><br/>
                     <Button style={button2} variant="contained">Cancel</Button>
                     <br/>
                 </div>
-
             </div>
         );
     }
