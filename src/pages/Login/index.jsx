@@ -1,58 +1,6 @@
 import {Component} from "react";
-import {Button, TextField, Typography} from "@mui/material";
-
-/*styles*/
-const divStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    backgroundColor: 'grey',
-    height: '100vh',
-    width: '100vw',
-    alignItems: 'center',
-    justifyContent: 'center'
-};
-
-const text1 = {
-    position: 'relative',
-    display: 'flex',
-    alignItems: 'center',
-    height: '30%',
-    width: '30%',
-    left: '85vh',
-    top: '11vh',
-    fontFamily: 'ubuntu',
-    fontSize: '41px',
-    color: '#9b59b6'
-};
-
-const form1 = {
-    position: 'relative',
-    height: '60%',
-    width: '20%',
-    left: '73vh',
-    top: '11vh'
-};
-
-const button1 = {
-    position: 'relative',
-    left: '83vh',
-    top: '14vh',
-    display: 'flex',
-    height: '9%',
-    width: '10%',
-    backgroundColor: 'green'
-};
-
-const button2 = {
-    position: 'relative',
-    left: '83vh',
-    top: '11vh',
-    display: 'flex',
-    height: '9%',
-    width: '10%',
-    backgroundColor: 'red'
-};
-
+import {Button, TextField, Typography, withStyles} from "@mui/material";
+import {styleSheet} from "./style";
 
 /*codes*/
 class Login extends Component {
@@ -61,7 +9,7 @@ class Login extends Component {
         this.state = {
             userName: 'admin',
             password: 'admin',
-            formData:{
+            formData: {
                 userName: '',
                 password: ''
             }
@@ -72,33 +20,46 @@ class Login extends Component {
         console.log("Log In button clicked")
         console.log("User name:" + this.state.userName)
         console.log("Password:" + this.state.password)
+
+        console.log("Form data" + this.state.formData)
+        // console.log("Form data" + this.state.password)
     }
 
     render() {
+        const {classes} = this.props;
         return (
-            <div className={divStyle}>
+            <div className={classes.container}>
                 <div>
-                    <Typography style={text1} variant="h5" gutterBottom component="div">
+                    <Typography style={classes.text__container} variant="h5" gutterBottom component="div">
                         Log In
                     </Typography>
                 </div>
                 <br/>
                 <div>
-                    <TextField style={form1} id="outlined-basic" label="User Name" onChange={(e) => {
+                    <TextField style={classes.form__container} id="outlined-basic" label="User Name" onChange={(e) => {
                         console.log(e.target.value)
+                        let formData = this.state.formData;
+                        formData.userName = e.target.value;
+                        this.setState(formData)
                     }} variant="outlined"/>
+
                     <br/><br/>
-                    <TextField style={form1} id="outlined-password-input" label="Password" onChange={(e) => {
-                        console.log(e.target.value)
-                    }}
-                    type="password" autoComplete="current-password"/>
+
+                    <TextField style={classes.form__container} id="outlined-password-input" label="Password"
+                               onChange={(e) => {
+                                   console.log(e.target.value)
+                                   let formData = this.state.formData;
+                                   formData.password = e.target.value;
+                                   this.setState(formData)
+                               }}
+                               type="password" autoComplete="current-password"/>
                 </div>
                 <br/>
                 <div>
-                    <Button style={button1} variant="contained" onClick={() => {
+                    <Button style={classes.btn__container} variant="contained" onClick={() => {
                         this.checkValidate();
                     }}>Log In</Button><br/><br/>
-                    <Button style={button2} variant="contained">Cancel</Button>
+                    <Button style={classes.btn__container} variant="contained">Cancel</Button>
                     <br/>
                 </div>
             </div>
@@ -107,4 +68,4 @@ class Login extends Component {
 }
 
 
-export default Login
+export default withStyles(styleSheet)(Login)
